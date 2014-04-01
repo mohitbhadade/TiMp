@@ -1,1 +1,16 @@
-Helo wolrd
+This project is basically an android application for drupal site.
+We have used phonegap to compile the code onto native android platform.
+Used Drupalgap for basic UI theme, and their API's for calls to drupal site.
+
+my_module.js:
+	Core logic implemeted by us.
+
+drupalgap.js:
+	This is default file that we get from drupalgap, which proves to be of great help.
+
+settings.js:
+	Related to app settings. How pages are defined and core navigation functionality.
+
+Contributors:
+	Mohit Bhadade
+	Rahul Purohit
