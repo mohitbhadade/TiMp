@@ -214,17 +214,18 @@ content['my_announcement_list'] = {
 
 
 
-function my_module_lectures_page_row(view, row) {
-	
+function my_module_lectures_page_row(view, row) {	
 	var str = row.pdfdownload;
-	//var pos = str.search("sites");
-	//var str1 = str.slice(pos, str.length); 
-	return '<td>' + l(row.title, 'node/' + row.nid)+'<br/>'+row.length+'<br/>'+'<a href="'+str+'">download.pdf</a>'+'</br></td></br><hr></hr>';
- 	
- 	//return l(row.title);
- 
+	str.replace('http://localhost','http://10.0.2.2');	
+	var pos = str.search("files");
+	var str1 = str.slice(pos+6, str.length);
+	
+	
+	 
+	return '<br/><td>'+row.title+'<br/><button onclick="pdfDownload(\''+str+'\',\''+str1+'\');">'+str1+'</button></td><hr/>'
+ 	//return l(row.title); 
 }
-
+// <button onclick="pdfDownload('http://file.com/file.pdf','file.pdf')">
 function my_module_forums_page_row(view, row) {
 	
 	return '<br/>'+l(row.title,drupalgap.settings.forums_subpage) +'<br/>New comments :'+ row.newcomments;
@@ -279,3 +280,18 @@ function my_module_block_view(delta) {
   return content;
 }
 
+function pdfDownload(link,filename) {
+//var link="http://10.0.2.2/www/sites/default/files/20140211-philippe.pdf";
+alert(link);
+  var fileTransfer = new FileTransfer();
+fileTransfer.download(
+	link,
+    "file:///mnt/sdcard/"+filename,
+    function(error) {
+    	console.log("download error source " + error.source);
+        console.log("download error target " + error.target);
+        console.log("upload error code: " + error.code);
+    }
+);
+alert('call done');
+}
