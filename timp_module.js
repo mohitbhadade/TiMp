@@ -11,6 +11,7 @@ introData += "    <li>Evaluating an Architecture<\/li>";
 introData += "<\/ul>";
 introData += "Software architecture will be discussed in the context of a contemporary computing platforms - the User Interface is on a mobile phone and the service is hosted on the Cloud <\/p>";
 
+var lectureUrl = "";
 
 var strHomeHtml="";
 //strHomeHtml += "<p><a href=/""+lectures+"/"> Lectures</a>";
@@ -60,6 +61,13 @@ function my_module_menu() {
   title: 'Checking Subpage',
   page_callback: 'my_module_forums_subpage_page'
   };
+  
+  items['my_video_play']={
+  title: 'Lecture Video',
+  page_callback: 'my_module_lecture_video_page',
+  //'page_hide': 'my_module_delete_video_page'
+  };
+  
   return items;
 }
 
@@ -93,7 +101,7 @@ function my_module_home_page(){
 
 function my_module_lectures_page() {
   var content = {};
-  //alert('inside ');
+    //alert('inside ');
     content['my_lectures_list'] = {
     theme: 'view',
     //format: 'ul',
@@ -211,7 +219,17 @@ content['my_announcement_list'] = {
 
 }
 
-
+function my_module_lecture_video_page(){
+	var content = {};
+	alert(lectureUrl);
+	//content['my_video'] = {
+		//markup: '<iframe width="100%" height="100%" src="https://www.youtube.com/watch?v=qYvTCiMKzBY?width=640px&amp;height=360px&amp;theme=dark&amp;autoplay=0&amp;hd=1&amp;rel=0&amp;showinfo=1&amp;modestbranding=1&amp;iv_load_policy=1&amp;autohide=2&amp;start=0&amp;wmode=opaque" frameborder="0" allowfullscreen></iframe>'
+//	};
+  	var htmlvideocode='<div class="embedded-video">';
+	htmlvideocode+='<div class="player"><iframe width="100%" height="360px" src="'+lectureUrl+'" frameborder="0" allowfullscreen></iframe>  </div></div></div>';
+	content='<br\>'+htmlvideocode;
+	return content;
+}
 
 
 function my_module_lectures_page_row(view, row) {
@@ -229,15 +247,22 @@ function my_module_lectures_page_row(view, row) {
 		else
 			break;		
 	}
-	ht += '<br/>Video('+row.length+')';
+	ht += '<br/><a href="#" onclick="videoPlay(\''+row.video_new+'\')">View Lecture('+row.length+')</a>';
 	return ht+'<hr/>';
 	//return '<br/><td>'+row.title+'<br/><button onclick="pdfDownload(\''+str+'\',\''+str1+'\');">'+str1+'</button></td><hr/>';
+}
+
+function videoPlay(youtubeUrl){
+	lectureUrl = youtubeUrl;
+	lectureUrl = lectureUrl.replace("watch?v=", "embed/");
+	drupalgap_goto(drupalgap.settings.video_play, {reloadPage:true});
 }
 
 // <button onclick="pdfDownload('http://file.com/file.pdf','file.pdf')">
 
 function my_module_forums_page_row(view, row) {
-	return '<br/>'+l(row.title,drupalgap.settings.forums_subpage) +'<br/>New comments :'+ row.newcomments;
+	//return '<br/>'+l(row.title,drupalgap.settings.forums_subpage) +'<br/>New comments :'+ row.newcomments;
+	return '<br/> <a href="node/"'+row.nid+'" onclick="javascript:node_load(\''+row.nid+'\')">'+row.title+'</a>';
 }
 
 
@@ -249,14 +274,12 @@ function my_module_wikis_page_row(view, row) {
 }
 
 function my_module_events_page_row(view, row) {
-	
 	return '<br/>'+l(row.title,'node/'+row.nid) +'<br/>Created On :'+ row.createdon;
  
 }
 
 function my_module_announcements_page_row(view, row) {
- 
-    return '<br/>'+l(row.title,'node/'+row.nid) +'<br/>Created On:'+ row.createdon;
+     return '<br/>'+l(row.title,'node/'+row.nid) +'<br/>Created On:'+ row.createdon;
 }
 
 
@@ -303,3 +326,9 @@ fileTransfer.download(
 );
 alert('call done');
 }
+
+//funcion my_module_delete_video_page(){
+	//alert('Page_hide_event');
+	//var page_id = drupalgap_get_page_id(drupalgap.settings.video_play);
+	//drupalgap_remove_page_from_dom(page_id, { force: true });
+//}
