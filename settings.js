@@ -7,7 +7,7 @@
 /* Drupal Paths */
  
 // Site Path (do not use a trailing slash)
-Drupal.settings.site_path = 'http://10.0.2.2/www'; // e.g. http://www.example.com
+Drupal.settings.site_path = 'http://172.24.49.156/www'; // e.g. http://www.example.com
 
 // Default Services Endpoint Path
 Drupal.settings.endpoint = 'drupalgap';
@@ -61,6 +61,9 @@ drupalgap.settings.events='my_events';
 
 //App Announcement Page
 drupalgap.settings.announcements='my_announcements';
+
+//App Video Lecture Page
+drupalgap.settings.video_play = 'my_video_play';
 
 //App forum subpage
 drupalgap.settings.forums_subpage='my_forums_subpage';
