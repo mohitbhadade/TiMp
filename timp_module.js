@@ -51,7 +51,7 @@ function my_module_menu() {
       title: 'Events Page',
       page_callback: 'my_module_events_page'
   };
-  
+	   
   items['my_announcements'] = {
       title: 'Announcements Page',
       page_callback: 'my_module_announcements_page'
@@ -66,6 +66,12 @@ function my_module_menu() {
   title: 'Lecture Video',
   page_callback: 'my_module_lecture_video_page',
   //'page_hide': 'my_module_delete_video_page'
+  };
+  
+  items['create_new_forum']={
+  	  title:'New Forum',
+      page_callback:'drupalgap_get_form',
+      page_arguments:['my_module_create_forum_form']
   };
   
   return items;
@@ -121,6 +127,9 @@ function my_module_lectures_page() {
 function my_module_forums_page(){
 //alert('I am in My_module_forump');
 var content = {};
+content['create_forum'] = {
+markup: '<button onclick="javascript:new_forum_create()">Add a Question</button><br/>'
+};
 content['my_forum_list'] = {
 	theme: 'view',
     format: 'ul',
@@ -136,6 +145,11 @@ content['my_forum_list'] = {
   return content;
 
 }
+
+function new_forum_create(){
+drupalgap_goto(drupalgap.settings.create_forum);
+}
+
 
 function my_module_forums_subpage_page(){
 alert('inisde');
@@ -262,7 +276,7 @@ function videoPlay(youtubeUrl){
 
 function my_module_forums_page_row(view, row) {
 	//return '<br/>'+l(row.title,drupalgap.settings.forums_subpage) +'<br/>New comments :'+ row.newcomments;
-	return '<br/> <a href="node/"'+row.nid+'" onclick="javascript:node_load(\''+row.nid+'\')">'+row.title+'</a>';
+	return '<hr/><br/> <a href="node/"'+row.nid+'" onclick="javascript:node_load(\''+row.nid+'\')">'+row.title+'</a><br/>'+row.last_cmnt_author;
 }
 
 
@@ -327,8 +341,52 @@ fileTransfer.download(
 alert('call done');
 }
 
-//funcion my_module_delete_video_page(){
-	//alert('Page_hide_event');
-	//var page_id = drupalgap_get_page_id(drupalgap.settings.video_play);
-	//drupalgap_remove_page_from_dom(page_id, { force: true });
-//}
+/**
+ * Defining the create forum form.
+ */
+function my_module_create_forum_form(form, form_state) {
+  alert('fdg');
+  form.elements.question = {
+    type:'textarea',
+    title:'Add Question Title',
+    required:true
+  };
+  form.elements.summary = {
+    type:'textarea',
+    title:'Add Summary',
+    required:false
+  };
+  form.elements.create = {
+    type:'submit',
+    value:'Create Forum'
+  };
+  return form;
+  }
+
+/**
+ * Defining the "create_forum" form's validation function (optional).
+ */
+function my_module_create_forum_form_validate(form, form_state) {
+  // Inform the user that he/she can not leave question empty
+  if (form_state.values.question == '') {
+    drupalgap_form_set_error('question', 'Sorry, please enter question!');
+  }
+}
+
+/**
+ * Define the "create_forum" form's submit function.
+ */
+function my_module_create_forum_form_submit(form, form_state) {
+  alert('Question :' + form_state.values.question );
+  var node = {
+  title:form_state.values.question,
+  body:form_state.values.summary,
+  type:'forum'
+};
+node_save(node, {
+  success:function(result) {
+    alert("Saved forum #" + result.nid);
+  }
+});
+
+}
