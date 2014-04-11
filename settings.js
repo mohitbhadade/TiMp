@@ -73,8 +73,13 @@ drupalgap.settings.create_forum='create_new_forum';
 
 //App wiki create page
 drupalgap.settings.create_wiki='create_new_wiki'
+
+//App wiki subpage
+drupalgap.settings.wiki_subpage='my_wikis_subpage'
+
 // Theme
 drupalgap.settings.theme = 'easystreet3';
+
 
 // Logo
 drupalgap.settings.logo = 'themes/easystreet3/images/drupalgap.jpg';

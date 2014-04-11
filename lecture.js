@@ -1,22 +1,22 @@
 var lectureUrl = "";
 
 function my_module_lectures_page() {
-  var content = {};
+	var content = {};
+    
     content['my_lectures_list'] = {
-    theme: 'view',
-    //format: 'ul',
-    format: 'table',
- 	path: 'my-lectures/json', 
-    
-    row_callback: 'my_module_lectures_page_row',
-    
-    attributes: {
-      id: 'my_lectures_view'
-    }
-  };
-  return content;
+    	theme: 'view',
+    	//format: 'ul',
+    	format: 'table',
+ 		path: 'my-lectures/json', 
+		row_callback: 'my_module_lectures_page_row',
+   		
+   		attributes: {
+      		id: 'my_lectures_view'
+    	}
+  	};
+  	
+  	return content;
 }
-
 
 function my_module_lecture_video_page(){
 	var content = {};
@@ -29,22 +29,23 @@ function my_module_lecture_video_page(){
 
 function my_module_lectures_page_row(view, row) {
 		
-	var ht= '<br/><td>'+row.title+'<br/>';
+	var ht= '<br/><center><td>'+row.title+'<br/>';
 	var str = row.pdfdownload;
 	
 	while(str.search("files")!=-1){			
 		var pos = str.search("files");
 		var filename = str.slice(pos+6, str.search("pdf")+3);
-		ht += '<button onclick="pdfDownload(\''+filename+'\');">'+filename+'</button></td>';
+		ht += '<a href="#" onclick="pdfDownload(\''+filename+'\');">'+filename+'</a><br/>';
 		pos = str.search(",");
+	
 		if(pos != -1)
 			str = str.slice(pos+1);
 		else
 			break;		
 	}
+	
 	ht += '<br/><a href="#" onclick="videoPlay(\''+row.video_new+'\')">View Lecture('+row.length+')</a>';
-	return ht+'<hr/>';
-
+	return ht+'<hr/></center>';
 }
 
 function videoPlay(youtubeUrl){
@@ -57,6 +58,7 @@ function videoPlay(youtubeUrl){
 function pdfDownload(filename) {
 var link="http://10.0.2.2/www/sites/default/files/"+filename;
 var fileTransfer = new FileTransfer();
+
 fileTransfer.download(
 	link,
     "file:///mnt/sdcard/"+filename,

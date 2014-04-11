@@ -52,20 +52,25 @@ function my_module_menu() {
   };
     
   items['my_forums_subpage']={
-  title: 'Checking Subpage',
-  page_callback: 'my_module_forums_subpage_page'
+  title: 'Forum',
+  page_callback: 'my_module_forums_subpage_page',
+  options:{
+        reloadPage:true
+      }
   };
   
   items['my_video_play']={
   title: 'Lecture Video',
   page_callback: 'my_module_lecture_video_page',
   //'page_hide': 'my_module_delete_video_page'
+  
+  
   };
   
   items['create_new_forum']={
   	  title:'New Forum',
       page_callback:'drupalgap_get_form',
-      page_arguments:['my_module_create_forum_form']
+      page_arguments:['my_module_create_forum_form'],
   };
   
   items['create_new_wiki']={
@@ -74,6 +79,13 @@ function my_module_menu() {
       page_arguments:['my_module_create_wiki_form']
   };
   
+  items['my_wikis_subpage']={
+  title: 'Wiki',
+  page_callback: 'my_module_wikis_subpage_page',
+  options:{
+        reloadPage:true
+      }
+  };
   
   return items;
 }
@@ -92,14 +104,14 @@ function my_module_login_page() {
 }
 
 function my_module_home_page(){
- var content = {};
- content['home_page_list'] = { 
- markup:'<a onclick="javascript:drupalgap_goto(drupalgap.settings.lectures);">Lectures</a><br/><hr/><a onclick="javascript:drupalgap_goto(drupalgap.settings.forums);">Forums</a><br/><hr/><a onclick="javascript:drupalgap_goto(drupalgap.settings.wikis);">Wikis</a><br/><hr/><a onclick="javascript:drupalgap_goto(drupalgap.settings.events);">Events</a><br/><hr/><a onclick="javascript:drupalgap_goto(drupalgap.settings.announcements);">Announcements</a><br/><hr/>'
- };
- return content;
+	var content = {};
+ 	
+ 	content['home_page_list'] = { 
+ 	markup:'<a onclick="javascript:drupalgap_goto(drupalgap.settings.lectures);">Lectures(Learn)</a><br/><hr/><a onclick="javascript:drupalgap_goto(drupalgap.settings.forums);">Forums(Discuss)</a><br/><hr/><a onclick="javascript:drupalgap_goto(drupalgap.settings.wikis);">Wikis(Create)</a><br/><hr/><a onclick="javascript:drupalgap_goto(drupalgap.settings.events);">Events(Orgnize)</a><br/><hr/><a onclick="javascript:drupalgap_goto(drupalgap.settings.announcements);">Announcements</a><br/><hr/>'
+ 	};
+ 	
+ 	return content;
 }
-
-
 
 function my_module_block_info() {
   var blocks = {
@@ -108,6 +120,7 @@ function my_module_block_info() {
       module:'my_module',
     },
   };
+
   return blocks;
 }
 
@@ -118,9 +131,9 @@ function my_module_block_view(delta) {
     link += l('Lectures', drupalgap.settings.lectures, { InAppBrowser: false, attributes: { 'data-role': 'button' } });
     link += l('Forums', drupalgap.settings.forums, { InAppBrowser: false, attributes: { 'data-role': 'button' } });
     link += l('Events', drupalgap.settings.events, { InAppBrowser: false, attributes: { 'data-role': 'button' } });
-    
     content = '<center>' + link + '</center>';
   }
+
   return content;
 }
 
