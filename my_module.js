@@ -38,7 +38,10 @@ function my_module_menu() {
   
   items['my_wikis'] = {
       title: 'Wiki Page',
-      page_callback: 'my_module_wikis_page'
+      page_callback: 'my_module_wikis_page',
+      options:{
+        reloadPage:true
+      }
   };
 	
   items['my_events'] = {
@@ -71,6 +74,10 @@ function my_module_menu() {
   	  title:'New Forum',
       page_callback:'drupalgap_get_form',
       page_arguments:['my_module_create_forum_form'],
+      options:{
+        reloadPage:true
+      }
+  
   };
   
   items['create_new_wiki']={
@@ -85,6 +92,12 @@ function my_module_menu() {
   options:{
         reloadPage:true
       }
+  };
+  
+  items['my_post_comment'] = {
+  	title: 'Post Comment',
+  	page_callback:'drupalgap_get_form',
+    page_arguments:['my_module_post_comment_form']
   };
   
   return items;

@@ -114,5 +114,6 @@ node_save(node, {
 
 form_state.values.wikititle='';
 form_state.values.wikibody='';
+drupalgap_goto(drupalgap.settings.wikis, {reloadPage:true});
 
 }
