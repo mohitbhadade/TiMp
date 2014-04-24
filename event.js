@@ -1,3 +1,6 @@
+var eventBody="";
+var eventTitle="";
+
 function my_module_events_page(){
 
 var content = {};
@@ -18,6 +21,5 @@ content['my_event_list'] = {
 }
 
 function my_module_events_page_row(view, row) {
-	return '<br/>'+l(row.title,'node/'+row.nid) +'<br/>Created On :'+ row.createdon;
- 
+	return '<center><h4>'+row.title+'</h4><br/>Created On: '+row.createdon+'<br/>Due Date: '+row.dates+'</center><hr/>'
 }

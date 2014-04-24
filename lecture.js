@@ -68,6 +68,7 @@ fileTransfer.download(
         console.log("upload error code: " + error.code);
     }
 );
+alert('File: '+filename+' is downloaded in sdcard');
 
 }
 

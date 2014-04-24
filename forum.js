@@ -1,12 +1,12 @@
-var tempforumtitle="";
-var tempforumbody="";
-var forum_id = "";
+var tempforumtitle;
+var tempforumbody;
+var forum_id;
 
 function my_module_forums_page(){
 	var content = {};
 		content['create_forum'] = {
-		markup: '<button onclick="javascript:new_forum_create()">Add a Question</button><br/>'
-	};
+				markup: '<button onclick="javascript:new_forum_create()">Add a Question</button><br/>'
+		};
 	
 	content['my_forum_list'] = {
 		theme: 'view',
@@ -28,7 +28,7 @@ function new_forum_create(){
 
 function my_module_forums_page_row(view, row) {
 	var html = '<br/> <a href="#" onclick="my_comment_create(\''+row.nid+'\')">'+row.title+'('+row.newcomments+')</a>';
-	html += '<br/> <a href = "#" onlclick = "userProf(\''+row.author_uid+'\')" >Author</a><br/>Last Comment by:' + row.last_cmnt_author + '</a><hr/>';
+	html += '<br/> Last Comment by:' + row.last_cmnt_author + '</a><hr/>';
 	return html;
 	return row.title;
 } 
@@ -70,19 +70,22 @@ function userProf(auid){
 }
 
 function my_comment_create(forumnid){
-	node_load(forumnid, {
-    success: function(node) {
-      tempforumtitle=node.title;
-      tempforumbody=node.body.und[0].value;
-      alert('Loaded ' + node.title);
-    }
-});
 	forum_id = forumnid;
-	drupalgap_goto(drupalgap.settings.forums_subpage, {reloadPage:true});
+	
+	node_load(forum_id, {
+    		success: function(node) {
+ 			tempforumtitle=node.title;
+      		
+      		tempforumbody=node.body.und[0].value;
+      		drupalgap_goto(drupalgap.settings.forums_subpage, {reloadPage:true} );
+			
+		}
+	});
+		
+	
 }
 
 function my_module_forums_subpage_page(){
-	
 	var content={};
 	
 	content['my_forum_body'] = {
@@ -106,15 +109,16 @@ function my_module_forums_subpage_page(){
       		id: 'drupalgap_comments_view'
    		}
   	};
+  
   	return content;
 }
 
 function forum_post_comment(){
-	alert('Post pressed');
 	drupalgap_goto(drupalgap.settings.post);
 }
 
 function my_module_forum_comments_page_row(view,row){
+	
 	if(row.title==tempforumtitle)
 		return '<br/>'+row.name+' says : '+row.comment_body+'<br/><h4>Created on :</h4>'+row.created+'<hr/>';
 	else
@@ -172,9 +176,10 @@ function my_module_create_forum_form_submit(form, form_state) {
 
 	node_save(node, {
   		success:function(result) {
-    		alert("Saved forum");
+    		alert("Question ++ ");
   		}
 	});
+	drupalgap_goto(drupalgap.settings.forums,{reloadPage: true});
 }
 
 function my_module_post_comment_form(form, form_state){
@@ -211,7 +216,8 @@ function my_module_post_comment_form_submit(form, form_state){
 	};
 	comment_save(comment, {
     	success:function(result) {
-      		alert('Saved comment #' + result.cid);
+      		alert('Comment done !!');
     	}
 	});
+	drupalgap_goto(drupalgap.settings.forums_subpage,{reloadPage: true});
 }

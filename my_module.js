@@ -16,7 +16,7 @@ function my_module_menu() {
  	
   var items = {};
   items['my_login_page'] = {
-    title: 'TALIM CS654',
+    title: 'TIMP',
     page_callback: 'my_module_login_page'
   };
    
@@ -53,32 +53,38 @@ function my_module_menu() {
       title: 'Announcements Page',
       page_callback: 'my_module_announcements_page'
   };
-    
-  items['my_forums_subpage']={
-  title: 'Forum',
-  page_callback: 'my_module_forums_subpage_page',
-  options:{
+  
+  items['my_announcements_subpage'] = {
+      title: 'Announcement',
+      page_callback: 'my_module_announcements_subpage_page',
+      options:{
         reloadPage:true
-      }
+    }
   };
   
-  items['my_video_play']={
-  title: 'Lecture Video',
-  page_callback: 'my_module_lecture_video_page',
-  //'page_hide': 'my_module_delete_video_page'
   
+ items['my_forums_subpage']={
+  	title: 'Forum',
+  	page_callback: 'my_module_forums_subpage_page',
+  	options:{
+        reloadPage:true
+    }
+ };
   
-  };
+ items['my_video_play']={
+ 	title: 'Lecture Video',
+ 	page_callback: 'my_module_lecture_video_page',
+ 	//'page_hide': 'my_module_delete_video_page'
+ };
   
-  items['create_new_forum']={
+items['create_new_forum']={
   	  title:'New Forum',
       page_callback:'drupalgap_get_form',
       page_arguments:['my_module_create_forum_form'],
       options:{
         reloadPage:true
       }
-  
-  };
+};
   
   items['create_new_wiki']={
   	  title:'New Wiki',
@@ -99,7 +105,7 @@ function my_module_menu() {
   	page_callback:'drupalgap_get_form',
     page_arguments:['my_module_post_comment_form']
   };
-  
+
   return items;
 }
 
@@ -120,7 +126,7 @@ function my_module_home_page(){
 	var content = {};
  	
  	content['home_page_list'] = { 
- 	markup:'<a onclick="javascript:drupalgap_goto(drupalgap.settings.lectures);">Lectures(Learn)</a><br/><hr/><a onclick="javascript:drupalgap_goto(drupalgap.settings.forums);">Forums(Discuss)</a><br/><hr/><a onclick="javascript:drupalgap_goto(drupalgap.settings.wikis);">Wikis(Create)</a><br/><hr/><a onclick="javascript:drupalgap_goto(drupalgap.settings.events);">Events(Orgnize)</a><br/><hr/><a onclick="javascript:drupalgap_goto(drupalgap.settings.announcements);">Announcements</a><br/><hr/>'
+ 	markup:'<center><a onclick="javascript:drupalgap_goto(drupalgap.settings.lectures);">Lectures</a><br/><hr/><a onclick="javascript:drupalgap_goto(drupalgap.settings.forums);">Forums</a><br/><hr/><a onclick="javascript:drupalgap_goto(drupalgap.settings.wikis);">Wikis</a><br/><hr/><a onclick="javascript:drupalgap_goto(drupalgap.settings.events);">Events</a><br/><hr/><a onclick="javascript:drupalgap_goto(drupalgap.settings.announcements);">Announcements</a><br/><hr/></center>'
  	};
  	
  	return content;
@@ -131,6 +137,7 @@ function my_module_block_info() {
     my_custom_block:{
       delta:'my_custom_block',
       module:'my_module',
+      
     },
   };
 

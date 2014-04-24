@@ -7,7 +7,7 @@
 /* Drupal Paths */
  
 // Site Path (do not use a trailing slash)
-Drupal.settings.site_path = 'http://10.0.2.2/www'; // e.g. http://www.example.com
+Drupal.settings.site_path = 'http://172.24.49.156/www'; // e.g. http://www.example.com
 
 // Default Services Endpoint Path
 Drupal.settings.endpoint = 'drupalgap';
@@ -72,14 +72,20 @@ drupalgap.settings.forums_subpage='my_forums_subpage';
 drupalgap.settings.create_forum='create_new_forum';
 
 //App wiki create page
-drupalgap.settings.create_wiki='create_new_wiki'
+drupalgap.settings.create_wiki='create_new_wiki';
 
 //App wiki subpage
-drupalgap.settings.wiki_subpage='my_wikis_subpage'
+drupalgap.settings.wiki_subpage='my_wikis_subpage';
 
 // Theme
 drupalgap.settings.theme = 'easystreet3';
 
+//App announcement subpage
+drupalgap.settings.announcement_subpage='my_announcements_subpage';
+
+
+//App Post Comment
+drupalgap.settings.post = 'my_post_comment';
 
 // Logo
 drupalgap.settings.logo = 'themes/easystreet3/images/drupalgap.jpg';
@@ -237,8 +243,18 @@ drupalgap.settings.blocks.easystreet3 = {
     main:{}
   },
   footer:{
-  	my_custom_block:{},
-    //powered_by:{},
+  	my_custom_block:{
+  		pages:{
+        	value:['my_home','my_login_page', 'my_lectures', 'my_forums', 'my_wikis', 'my_events', 'my_announcements', 'my_announcements_subpage', 'my_forums_subpage', 'my_video_play', 'create_new_forum', 'create_new_wiki', 'my_wikis_subpage', 'my_post_comment'],
+        	mode:'include'
+      	}
+  	},
+  	powered_by:{
+  		pages:{
+        	value:['user/login', 'user/register'],
+        	mode:'include'
+      	}
+  	}
   }
 };
 
